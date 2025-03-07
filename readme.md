@@ -85,11 +85,8 @@ cp .env.example .env
 # Rodar o Docker Compose
 docker compose up -d
 
-# Gerar o cliente Prisma
-npm run prisma generate
-
 # Rodar migrations do Prisma
-npm run prisma migrate dev
+npx prisma migrate dev
 
 # Gerar os usuários iniciais
 npm run prisma:seed
@@ -110,11 +107,10 @@ cd front-next
 # Instale as dependências
 npm install
 
-# Copie o arquivo de variáveis de ambiente e ajuste os valores necessários
+# Copie o arquivo de variáveis de ambiente e ajuste os valores necessários; se não tiver criar o arquivo .env.local
+# NEXT_PUBLIC_API_URL=http://localhost:3000 ou ip da sua maquina para testes do websocket
+# NEXTAUTH_SECRET=your_secret
 cp .env.example .env.local
-
-# O IP 192.168.1.14 corresponde à máquina local onde o projeto está rodando, permitindo que outros dispositivos acessem para testes de lances.
-# Ajuste o valor de NEXT_PUBLIC_API_URL para o IP correto da sua máquina.
 
 # Execute a aplicação
 npm run dev
