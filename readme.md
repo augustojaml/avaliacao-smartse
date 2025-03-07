@@ -77,7 +77,7 @@ cd test-smartse
 cd back-nest
 
 # Instale as dependências
-pnpm install
+npm install
 
 # Copie o arquivo de variáveis de ambiente e ajuste os valores necessários
 cp .env.example .env
@@ -86,16 +86,16 @@ cp .env.example .env
 docker compose up -d
 
 # Gerar o cliente Prisma
-pnpm prisma generate
+npm run prisma generate
 
 # Rodar migrations do Prisma
-pnpm prisma migrate dev
+npm run prisma migrate dev
 
 # Gerar os usuários iniciais
-pnpm prisma:seed
+npm run prisma:seed
 
 # Executar servidor
-pnpm start:dev
+npm run start:dev
 ```
 
 ### Frontend:
@@ -108,7 +108,7 @@ cd ..
 cd front-next
 
 # Instale as dependências
-pnpm install
+npm install
 
 # Copie o arquivo de variáveis de ambiente e ajuste os valores necessários
 cp .env.example .env.local
@@ -117,7 +117,7 @@ cp .env.example .env.local
 # Ajuste o valor de NEXT_PUBLIC_API_URL para o IP correto da sua máquina.
 
 # Execute a aplicação
-pnpm dev
+npm run dev
 ```
 
 ## Usuários Seed
@@ -143,7 +143,7 @@ A tabela abaixo apresenta os usuários que serão inseridos no banco de dados pe
 Para rodar os testes unitários no backend:
 
 ```bash
-pnpm test
+npm test
 ```
 
 ## Envio do Teste
