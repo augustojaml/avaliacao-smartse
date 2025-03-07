@@ -1,61 +1,97 @@
 # Leilão Online - Desafio Técnico
 
-Este projeto é um mini sistema de leilão online em tempo real, desenvolvido como parte de um teste de aptidão técnica.
+Este projeto é um mini sistema de leilão online em tempo real, desenvolvido como parte de um teste de aptidão técnica. Ele permite que usuários participem de leilões de forma dinâmica e transparente, garantindo uma experiência fluida e segura. Administradores podem criar e gerenciar leilões, enquanto os participantes fazem lances em tempo real.
+
+![Tela de Login](1-signin.png)
+![Tela de Leilão](2-leilao.png)
+![Tela de Detalhes](3-detalhe.png)
+![Tela de Cadastro de Leilão](4-admin-add.png)
+![Painel Administrativo](5-admin.png)
 
 ## Tecnologias Utilizadas
 
 ### Frontend:
 
-- **Next.js** - Framework React para SSR e SSG
-- **React** - Biblioteca para construção de interfaces
-- **Tailwind CSS** - Framework CSS utilitário
-- **React Query** - Gerenciamento de estados assíncronos
-- **React Hook Form** - Gerenciamento de formulários
-- **Zod** - Validação de dados
-- **Socket.IO Client** - Comunicação em tempo real
+- **Next.js** - Framework React para renderização no servidor (SSR) e geração estática (SSG)
+- **React** - Biblioteca para construção de interfaces interativas
+- **Tailwind CSS** - Framework CSS utilitário para estilização rápida
+- **React Query** - Gerenciamento de estados assíncronos e cache de dados
+- **React Hook Form** - Gerenciamento de formulários eficiente e performático
+- **Zod** - Validação de dados com schemas flexíveis
+- **Socket.IO Client** - WebSockets para comunicação em tempo real
 
 ### Backend:
 
-- **Nest.js** - Framework Node.js para aplicações escaláveis
-- **Socket.IO** - WebSockets para comunicação em tempo real
-- **Prisma ORM** - Gerenciamento de banco de dados
-- **JWT (JSON Web Token)** - Autenticação segura
-- **Bcrypt** - Criptografia de senhas
+- **Nest.js** - Framework Node.js para desenvolvimento escalável
+- **Socket.IO** - Implementação de WebSockets para interações dinâmicas
+- **Prisma ORM** - Gerenciamento de banco de dados com tipos seguros
+- **JWT (JSON Web Token)** - Autenticação segura e baseada em tokens
+- **Bcrypt** - Criptografia segura para senhas dos usuários
+
+## Usuários para Testes
+
+A tabela abaixo apresenta os usuários pré-cadastrados no sistema para fins de testes:
+
+| ID   | Nome Completo    | CPF         | Senha  | Role  |
+| ---- | ---------------- | ----------- | ------ | ----- |
+| UUID | William Anderson | 12345678909 | 123456 | ADMIN |
+| UUID | John Smith       | 31674099088 | 123456 | USER  |
+| UUID | Emily Johnson    | 45544995028 | 123456 | USER  |
+| UUID | Michael Brown    | 00045353085 | 123456 | USER  |
+| UUID | Sophia Wilson    | 97558955076 | 123456 | USER  |
+
+**Observações:**
+
+- Os IDs são gerados automaticamente como UUIDs.
+- Os CPFs são fictícios, criados apenas para fins de teste.
+- As senhas estão criptografadas no banco de dados, mas o valor original para login é `123456`.
 
 ## Funcionalidades
 
 1. **Login**
 
-   - Autenticação via CPF e senha
+   - Autenticação segura via CPF e senha
    - Redirecionamento para a página inicial
 
 2. **Listagem de Leilões**
 
-   - Nome do item
-   - Preço inicial
-   - Status do leilão (Aguardando, Aberto, Encerrado)
-   - Contagem regressiva
+   - Exibição de leilões disponíveis com detalhes essenciais:
+     - Nome do item
+     - Preço inicial
+     - Status do leilão (Aguardando, Aberto, Encerrado)
+     - Contagem regressiva para o término
 
 3. **Cadastro de Leilão** (Apenas administradores)
 
-   - Nome do item, quantidade, valor inicial, data/hora de início e fim
+   - Campos obrigatórios:
+     - Nome do item
+     - Quantidade
+     - Valor inicial
+     - Data/hora de início e fim
    - Validação via React Hook Form e Zod
 
 4. **Detalhes do Leilão**
 
-   - Nome do item, preço atual, lances em tempo real, tempo restante
+   - Nome do item, preço atual, lista de lances em tempo real e tempo restante
+   - Exibição clara das informações para melhor tomada de decisão
 
 5. **Envio de Lances**
 
-   - Somente leilões abertos
-   - Valor maior que o atual
+   - Apenas permitido para leilões abertos
+   - O valor do lance deve ser maior que o valor atual
    - Intervalo de 5 segundos entre lances do mesmo participante
-   - Leilão encerra após 2 minutos sem lances
+   - O leilão é encerrado automaticamente após 2 minutos sem lances
 
-6. **Notificações em Tempo Real**
+6. **Painel Administrativo**
+
+   - Administradores podem visualizar e gerenciar leilões ativos e finalizados
+   - Gerenciamento de participantes e lances em tempo real
+
+7. **Notificações em Tempo Real**
+
    - Atualização automática da lista de lances
-   - Notificações de novos lances
-   - Informação do vencedor no encerramento do leilão
+   - Notificações imediatas para novos lances
+   - Exibição do vencedor ao encerrar o leilão
 
 ## Instalação e Execução
 
@@ -85,8 +121,11 @@ cp .env.example .env
 # Rodar o Docker Compose
 docker compose up -d
 
+# Gerar o cliente Prisma
+npm run prisma generate
+
 # Rodar migrations do Prisma
-npx prisma migrate dev
+npm run prisma migrate dev
 
 # Gerar os usuários iniciais
 npm run prisma:seed
@@ -107,32 +146,12 @@ cd front-next
 # Instale as dependências
 npm install
 
-# Copie o arquivo de variáveis de ambiente e ajuste os valores necessários; se não tiver criar o arquivo .env.local
-# NEXT_PUBLIC_API_URL=http://localhost:3000 ou ip da sua maquina para testes do websocket
-# NEXTAUTH_SECRET=your_secret
+# Copie o arquivo de variáveis de ambiente e ajuste os valores necessários
 cp .env.example .env.local
 
 # Execute a aplicação
 npm run dev
 ```
-
-## Usuários Seed
-
-A tabela abaixo apresenta os usuários que serão inseridos no banco de dados pelo script de seed.
-
-| ID     | Full Name        | CPF         | Password (hashed)                   | Role  |
-| ------ | ---------------- | ----------- | ----------------------------------- | ----- |
-| `UUID` | William Anderson | 12345678909 | Hashed with bcrypt (10 salt rounds) | ADMIN |
-| `UUID` | John Smith       | 98765432100 | Hashed with bcrypt (10 salt rounds) | USER  |
-| `UUID` | Emily Johnson    | 11122233344 | Hashed with bcrypt (10 salt rounds) | USER  |
-| `UUID` | Michael Brown    | 55566677788 | Hashed with bcrypt (10 salt rounds) | USER  |
-| `UUID` | Sophia Wilson    | 99988877766 | Hashed with bcrypt (10 salt rounds) | USER  |
-
-**Observações:**
-
-- O campo `ID` será gerado dinamicamente como um **UUID**.
-- O `CPF` é válido, mas fictício.
-- As senhas devem ser armazenadas de forma segura utilizando **hashing** antes de entrar em produção.
 
 ## Testes (Apenas no Backend)
 
