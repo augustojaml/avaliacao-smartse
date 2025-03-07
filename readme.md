@@ -2,11 +2,25 @@
 
 Este projeto é um mini sistema de leilão online em tempo real, desenvolvido como parte de um teste de aptidão técnica. Ele permite que usuários participem de leilões de forma dinâmica e transparente, garantindo uma experiência fluida e segura. Administradores podem criar e gerenciar leilões, enquanto os participantes fazem lances em tempo real.
 
+### Login e Leilão
+
 ![Tela de Login](1-signin.png)
+
+### Leilão
+
 ![Tela de Leilão](2-leilao.png)
+
+### Detalhes do Leilão
+
 ![Tela de Detalhes](3-detalhe.png)
-![Tela de Cadastro de Leilão](4-admin-add.png)
+
+### Painel Administrativo
+
 ![Painel Administrativo](5-admin.png)
+
+### Painel Administrativo (Adicionar leilão)
+
+![Tela de Cadastro de Leilão](4-admin-add.png)
 
 ## Tecnologias Utilizadas
 
