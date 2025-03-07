@@ -1,0 +1,79 @@
+@baseUrl = http://localhost:3333
+
+### Create User
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "fullName": "Flavia Lima",
+  "cpf": "96690169081",
+  "password": "123456"
+}
+
+### Auth User
+# @name authUser
+POST {{baseUrl}}/sessions
+Content-Type: application/json
+
+{
+  "cpf": "07714836008",
+  "password": "123456"
+}
+
+####
+@token = {{authUser.response.body.access_token}}
+
+### Create Auction
+POST {{baseUrl}}/auctions
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "itemName": "Livro de Automatização de Testes",
+  "quantity": 10,
+  "initialPrice": 150,
+  "startTime": "2025-03-05T12:00:00.000Z",
+  "endTime": "2025-03-06T12:30:00.000Z" 
+}
+
+### Find All Actions
+GET {{baseUrl}}/auctions
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Get Action
+GET {{baseUrl}}/auctions/6c432689-11ae-4b28-b00c-807ce8b7305b
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+
+### Update Status Action
+PUT {{baseUrl}}/auctions/6c432689-11ae-4b28-b00c-807ce8b7305b
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "closed"
+}
+
+### Create Bid
+POST {{baseUrl}}/bids
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "auctionId": "21fff1b3-e7f1-4328-93ad-4556a0d0bfe4",
+  "amount": 200
+}
+
+### Get Bids
+GET {{baseUrl}}/bids?auction_id=c0527589-5cba-4509-943e-13753aed47da
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### Get Max Bids
+GET {{baseUrl}}/bids/max?auction_id=02b422dc-261e-484c-b63e-a0d5c07494e5
+Content-Type: application/json
+Authorization: Bearer {{token}}

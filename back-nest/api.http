@@ -1,0 +1,78 @@
+@baseUrl = http://192.168.1.14:3333
+
+### Create User
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "fullName": "Flavia Lima",
+  "cpf": "07291517001",
+  "password": "123456"
+}
+
+### Auth User
+# @name authUser
+POST {{baseUrl}}/sessions
+Content-Type: application/json
+
+{
+  "cpf": "07291517001",
+  "password": "123456"
+}
+
+####
+@token = {{authUser.response.body.access_token}}
+
+### Create Auction
+POST {{baseUrl}}/auctions
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "itemName": "Blusa",
+  "quantity": 5,
+  "initialPrice": 20.55,
+  "startTime": "2025-03-06T15:40:00.000Z",
+  "endTime": "2025-03-06T16:00:00.000Z" 
+}
+
+### Find All Actions
+GET {{baseUrl}}/auctions
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### Get Auction
+GET {{baseUrl}}/auctions/8e9fd83e-660d-43a8-ab0e-c45e80656d73
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### Update Status Action
+PUT {{baseUrl}}/auctions/6c432689-11ae-4b28-b00c-807ce8b7305b
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "closed"
+}
+
+### Create Bid
+POST {{baseUrl}}/bids
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "auctionId": "02b422dc-261e-484c-b63e-a0d5c07494e5",
+  "amount": 700.56
+}
+
+### Find Binds
+GET {{baseUrl}}/bids?auction_id=c0527589-5cba-4509-943e-13753aed47da
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### Find Mx Binds
+GET {{baseUrl}}/bids/max?auction_id=c0527589-5cba-4509-943e-13753aed47da
+Content-Type: application/json
+Authorization: Bearer {{token}}

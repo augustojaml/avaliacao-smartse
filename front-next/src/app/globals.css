@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Montserrat", sans-serif;
+
+  /* Light Mode */
+  --color-background-light: #f3f4f6;
+  --color-sidebar-light: #faf5ff;
+  --color-primary-light: #8b5cf6;
+  --color-primaryLight-light: #a78bfa;
+  --color-secondary-light: #3b82f6;
+  --color-textPrimary-light: #111827;
+  --color-textSecondary-light: #6b7280;
+  --color-cardBackground-light: #ffffff;
+
+  /* Cosmic Dark Mode */
+  --color-background-dark: #1b1b38;
+  --color-sidebar-dark: #323359;
+  --color-primary-dark: #6b5cb2;
+  --color-primaryLight-dark: #a78bfa;
+  --color-secondary-dark: #33345a;
+  --color-textPrimary-dark: #ffffff;
+  --color-textSecondary-dark: #b0aec8;
+  --color-cardBackground-dark: #1c1c3a;
+
+  /* Accent Colors */
+  --color-accentGreen: #10b981;
+  --color-accentRed: #ef4444;
+  --color-accentPurple: #a855f7;
+  --color-accentOrange: #f59e0b;
+  --color-accentLime: #84cc16;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@keyframes toastFrameShow {
+  from {
+    transform: translateX(calc(100% + 25px));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideHide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(100% + 25px));
+  }
+}
+
+#appToast[data-state="open"] {
+  animation: toastFrameShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#appToast[data-state="closed"] {
+  animation: slideHide 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.custom-toast[data-state="open"] {
+  animation: toastFrameShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.custom-toast[data-state="closed"] {
+  animation: slideHide 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary-light);
+  border-radius: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: var(--color-sidebar-light);
+  border-radius: 8px;
+}
+
+/* Dark Mode */
+.dark .custom-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary-dark);
+}
+
+.dark .custom-scroll::-webkit-scrollbar-track {
+  background: var(--color-sidebar-dark);
+}
