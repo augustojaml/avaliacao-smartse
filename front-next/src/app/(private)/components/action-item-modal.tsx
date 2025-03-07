@@ -79,8 +79,8 @@ export const ActionItemModal = ({ open, onClose }: ActionItemModalProps) => {
               />
             </div>
 
-            <div className="flex items-center space-x-2">
-              <div>
+            <div className="flex items-center justify-between space-x-2">
+              <div className="w-[48%]">
                 <label className="text-textPrimary-light dark:text-textPrimary-dark text-sm">
                   Quantidade
                 </label>
@@ -93,7 +93,7 @@ export const ActionItemModal = ({ open, onClose }: ActionItemModalProps) => {
                 />
               </div>
 
-              <div>
+              <div className="w-[48%]">
                 <label className="text-textPrimary-light dark:text-textPrimary-dark text-sm">
                   Valor Inicial (R$)
                 </label>
@@ -107,8 +107,8 @@ export const ActionItemModal = ({ open, onClose }: ActionItemModalProps) => {
               </div>
             </div>
 
-            <div className="flex items-center space-x-2">
-              <div>
+            <div className="flex items-center justify-between space-x-2">
+              <div className="w-[48%]">
                 <label className="text-textPrimary-light dark:text-textPrimary-dark text-sm">
                   Data e Hora do Início
                 </label>
@@ -121,7 +121,7 @@ export const ActionItemModal = ({ open, onClose }: ActionItemModalProps) => {
                   error={errors.startTime?.message}
                 />
               </div>
-              <div>
+              <div className="w-[48%]">
                 <label className="text-textPrimary-light dark:text-textPrimary-dark text-sm">
                   Data e Hora do Fim
                 </label>

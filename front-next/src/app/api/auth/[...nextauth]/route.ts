@@ -1,18 +1,7 @@
 import axios from 'axios'
+import { console } from 'inspector'
 import NextAuth, { AuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-
-const EMPTY_TOKEN = {
-  sub: '',
-  id: '',
-  fullName: '',
-  cpf: '',
-  role: '',
-  access_token: '',
-  iat: 0,
-  exp: 0,
-  jti: '',
-}
 
 const authOptions: AuthOptions = {
   providers: [
@@ -62,13 +51,6 @@ const authOptions: AuthOptions = {
         token.access_token = user.access_token
       }
 
-      const dateNow = new Date().getTime()
-
-      const expireIn = new Date((token.exp as number) * 1000).getTime()
-
-      if (dateNow > expireIn) {
-        return EMPTY_TOKEN
-      }
       return token
     },
     async session({ session, token }) {
