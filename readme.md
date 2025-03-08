@@ -109,11 +109,8 @@ cp .env.example .env
 # Rodar os containers Docker
 docker compose up -d
 
-# Gerar cliente Prisma
-npm run prisma generate
-
 # Rodar migrations do Prisma
-npm run prisma migrate dev
+npx prisma migrate dev 
 
 # Gerar usuários iniciais no banco de dados
 npm run prisma:seed
