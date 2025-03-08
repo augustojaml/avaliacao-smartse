@@ -1,54 +1,56 @@
-# Leilão Online - Desafio Técnico
+# 🎯 Leilão Online - Desafio Técnico
 
-Este projeto é um mini sistema de leilão online em tempo real, desenvolvido como parte de um teste de aptidão técnica. Ele permite que usuários participem de leilões de forma dinâmica e transparente, garantindo uma experiência fluida e segura. Administradores podem criar e gerenciar leilões, enquanto os participantes fazem lances em tempo real.
+Bem-vindo ao **Leilão Online**, um mini sistema de leilão em tempo real desenvolvido como parte de um teste técnico. O objetivo é permitir que os usuários participem de leilões de forma dinâmica, transparente e segura. Administradores podem criar e gerenciar leilões, enquanto participantes disputam produtos através de lances em tempo real! 🚀🔥
 
-### Login e Leilão
+## 🖥️ Demonstração
+
+### 🔐 Login e Acesso
 
 ![Tela de Login](1-signin.png)
 
-### Leilão
+### ⚡ Leilão em Tempo Real
 
 ![Tela de Leilão](2-leilao.png)
 
-### Detalhes do Leilão
+### 📋 Detalhes do Leilão
 
 ![Tela de Detalhes](3-detalhe.png)
 
-### Painel Administrativo
+### 🎛️ Painel Administrativo
 
 ![Painel Administrativo](5-admin.png)
 
-### Painel Administrativo (Adicionar leilão)
+### ➕ Cadastro de Leilão
 
 ![Tela de Cadastro de Leilão](4-admin-add.png)
 
-### Video Demonstrativo
+### 🎥 Video Demonstrativo
 
-[![Título do Vídeo](https://img.youtube.com/vi/kloEt-IPjL4/0.jpg)](https://www.youtube.com/watch?v=kloEt-IPjL4)
+[![Assista ao Vídeo](https://img.youtube.com/vi/kloEt-IPjL4/0.jpg)](https://www.youtube.com/watch?v=kloEt-IPjL4)
 
-## Tecnologias Utilizadas
+---
 
-### Frontend:
+## 🛠️ Tecnologias Utilizadas
 
-- **Next.js** - Framework React para renderização no servidor (SSR) e geração estática (SSG)
-- **React** - Biblioteca para construção de interfaces interativas
-- **Tailwind CSS** - Framework CSS utilitário para estilização rápida
-- **React Query** - Gerenciamento de estados assíncronos e cache de dados
-- **React Hook Form** - Gerenciamento de formulários eficiente e performático
-- **Zod** - Validação de dados com schemas flexíveis
-- **Socket.IO Client** - WebSockets para comunicação em tempo real
+### **Frontend:**
 
-### Backend:
+- ⚡ **Next.js** - Framework React para SSR e SSG
+- 🎨 **Tailwind CSS** - Estilização rápida e eficiente
+- 🗄️ **React Query** - Gerenciamento de cache e estados assíncronos
+- 📜 **React Hook Form + Zod** - Controle de formulários e validação
+- 🔗 **Socket.IO Client** - Conexão WebSocket para lances em tempo real
 
-- **Nest.js** - Framework Node.js para desenvolvimento escalável
-- **Socket.IO** - Implementação de WebSockets para interações dinâmicas
-- **Prisma ORM** - Gerenciamento de banco de dados com tipos seguros
-- **JWT (JSON Web Token)** - Autenticação segura e baseada em tokens
-- **Bcrypt** - Criptografia segura para senhas dos usuários
+### **Backend:**
 
-## Usuários para Testes
+- 🚀 **Nest.js** - Framework escalável para Node.js
+- 🔄 **Socket.IO** - WebSockets para interações em tempo real
+- 🛢️ **Prisma ORM** - Gerenciamento de banco de dados
+- 🔑 **JWT** - Autenticação segura via tokens
+- 🔒 **Bcrypt** - Hash de senhas
 
-A tabela abaixo apresenta os usuários pré-cadastrados no sistema para fins de testes:
+---
+
+## 👤 Usuários para Testes
 
 | ID   | Nome Completo    | CPF         | Senha  | Role  |
 | ---- | ---------------- | ----------- | ------ | ----- |
@@ -60,71 +62,38 @@ A tabela abaixo apresenta os usuários pré-cadastrados no sistema para fins de 
 
 **Observações:**
 
-- Os IDs são gerados automaticamente como UUIDs.
-- Os CPFs são fictícios, criados apenas para fins de teste.
-- As senhas estão criptografadas no banco de dados, mas o valor original para login é `123456`.
+- IDs são gerados automaticamente como UUIDs.
+- CPFs fictícios, criados apenas para testes.
+- Senhas criptografadas no banco de dados. Para login, utilize `123456`.
 
-## Funcionalidades
+---
 
-1. **Login**
+## 🚀 Funcionalidades
 
-   - Autenticação segura via CPF e senha
-   - Redirecionamento para a página inicial
+✅ **Login Seguro** via CPF e senha
+✅ **Listagem de Leilões** com detalhes e contagem regressiva
+✅ **Cadastro de Leilões** (Apenas Admins)
+✅ **Detalhes do Leilão** com lances em tempo real
+✅ **Envio de Lances** com regras específicas
+✅ **Painel Administrativo** para gestão de leilões e participantes
+✅ **Notificações em Tempo Real**
 
-2. **Listagem de Leilões**
+---
 
-   - Exibição de leilões disponíveis com detalhes essenciais:
-     - Nome do item
-     - Preço inicial
-     - Status do leilão (Aguardando, Aberto, Encerrado)
-     - Contagem regressiva para o término
+## 📦 Instalação e Execução
 
-3. **Cadastro de Leilão** (Apenas administradores)
-
-   - Campos obrigatórios:
-     - Nome do item
-     - Quantidade
-     - Valor inicial
-     - Data/hora de início e fim
-   - Validação via React Hook Form e Zod
-
-4. **Detalhes do Leilão**
-
-   - Nome do item, preço atual, lista de lances em tempo real e tempo restante
-   - Exibição clara das informações para melhor tomada de decisão
-
-5. **Envio de Lances**
-
-   - Apenas permitido para leilões abertos
-   - O valor do lance deve ser maior que o valor atual
-   - Intervalo de 5 segundos entre lances do mesmo participante
-   - O leilão é encerrado automaticamente após 2 minutos sem lances
-
-6. **Painel Administrativo**
-
-   - Administradores podem visualizar e gerenciar leilões ativos e finalizados
-   - Gerenciamento de participantes e lances em tempo real
-
-7. **Notificações em Tempo Real**
-
-   - Atualização automática da lista de lances
-   - Notificações imediatas para novos lances
-   - Exibição do vencedor ao encerrar o leilão
-
-## Instalação e Execução
-
-### Clone o Repositório
+### 🔄 Clone o Repositório
 
 ```bash
 git clone git@github.com:augustojaml/test-smartse.git
 cd test-smartse
 ```
 
-### Backend:
+### ⚙️ Configuração do Backend
 
-#### Requisitos:
+#### 📌 Requisitos:
 
-- Docker e Docker Compose instalados
+- **Docker e Docker Compose instalados**
 
 ```bash
 # Acesse a pasta do backend
@@ -133,30 +102,31 @@ cd back-nest
 # Instale as dependências
 npm install
 
-# Copie o arquivo de variáveis de ambiente e ajuste os valores necessários
+# Copie o arquivo de variáveis de ambiente e ajuste os valores
+# Ajuste os valores de DB_USER, DB_PASS e DB_NAME conforme o docker-compose.yml
 cp .env.example .env
 
-# Rodar o Docker Compose
+# Rodar os containers Docker
 docker compose up -d
 
-# Gerar o cliente Prisma
+# Gerar cliente Prisma
 npm run prisma generate
 
 # Rodar migrations do Prisma
 npm run prisma migrate dev
 
-# Gerar os usuários iniciais
+# Gerar usuários iniciais no banco de dados
 npm run prisma:seed
 
-# Executar servidor
+# Executar o servidor
 npm run start:dev
 ```
 
-### Frontend:
+### 🎨 Configuração do Frontend
 
 ```bash
 # Voltar para a pasta raiz
-cd ..
+d cd ..
 
 # Acesse a pasta do frontend
 cd front-next
@@ -164,14 +134,21 @@ cd front-next
 # Instale as dependências
 npm install
 
-# Copie o arquivo de variáveis de ambiente e ajuste os valores necessários
+# Copie o arquivo de variáveis de ambiente
 cp .env.example .env.local
 
-# Execute a aplicação
+# Defina a URL da API no .env.local
+# Exemplo:
+# NEXT_PUBLIC_API_URL=http://192.168.1.14:3333
+# NEXTAUTH_SECRET=uma_chave_segura
+
+# Execute o projeto
 npm run dev
 ```
 
-## Testes (Apenas no Backend)
+---
+
+## 🧪 Testes (Backend)
 
 Para rodar os testes unitários no backend:
 
@@ -179,6 +156,4 @@ Para rodar os testes unitários no backend:
 npm test
 ```
 
-## Envio do Teste
-
-O projeto deve ser disponibilizado em um repositório público no GitHub e enviado para o email `contratacaosmartse@gmail.com` até o dia **09/03/2025, às 23h59**.
+---
