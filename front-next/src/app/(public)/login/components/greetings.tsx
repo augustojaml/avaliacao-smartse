@@ -6,7 +6,7 @@ export const Greetings = () => {
           Bem-vindo à
         </h2>
         <h2 className="text-textPrimary-dark text-4xl font-bold">
-          Plataforma de Licitações!
+          Plataforma de Leilões!
         </h2>
       </div>
       <p className="text-textPrimary-dark mb-8 max-w-md leading-relaxed">

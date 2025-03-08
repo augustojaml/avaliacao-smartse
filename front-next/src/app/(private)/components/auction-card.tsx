@@ -32,9 +32,9 @@ export const AuctionCard = ({ auctionData }: AuctionCardProps) => {
   // Criando um único intervalo para decrementar o contador
 
   const statusBackground = {
-    open: 'bg-accentGreen/5',
-    closed: 'bg-accentRed/5',
-    waiting: 'bg-accentOrange/5',
+    open: 'bg-accentGreen-light',
+    closed: 'bg-accentRed-light',
+    waiting: 'bg-accentOrange-light',
   }
 
   return (

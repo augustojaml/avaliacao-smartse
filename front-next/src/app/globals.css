@@ -16,21 +16,30 @@
   --color-cardBackground-light: #ffffff;
 
   /* Cosmic Dark Mode */
-  --color-background-dark: #1b1b38;
-  --color-sidebar-dark: #323359;
+  --color-background-dark: #141414;
+  --color-sidebar-dark: #1c1c1c;
   --color-primary-dark: #6b5cb2;
   --color-primaryLight-dark: #a78bfa;
-  --color-secondary-dark: #33345a;
+  --color-secondary-dark: #222222;
   --color-textPrimary-dark: #ffffff;
   --color-textSecondary-dark: #b0aec8;
-  --color-cardBackground-dark: #1c1c3a;
+  --color-cardBackground-dark: #2e2e2e;
 
   /* Accent Colors */
   --color-accentGreen: #10b981;
+  --color-accentGreen-light: #e6f9f0;
+
   --color-accentRed: #ef4444;
+  --color-accentRed-light: #fde8e8;
+
   --color-accentPurple: #a855f7;
+  --color-accentPurple-light: #f5ebff;
+
   --color-accentOrange: #f59e0b;
+  --color-accentOrange-light: #fff3db;
+
   --color-accentLime: #84cc16;
+  --color-accentLime-light: #f3fde2;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

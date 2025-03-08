@@ -44,13 +44,13 @@ export const ActionItemModal = ({ open, onClose }: ActionItemModalProps) => {
         startTime: data.startTime!,
         endTime: data.endTime!,
       })
+      setTimeout(() => reset(), 1000)
       socket?.emit('new-auction', data)
       showToast('Leilão cadastrado com sucesso', 'success')
     } catch (error) {
       showToast('Falha ao cadastrar leilão', 'error')
     }
     onClose()
-    reset()
   }
 
   return (
