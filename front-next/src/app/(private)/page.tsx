@@ -1,9 +1,12 @@
 'use client'
 
+import { useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
+import { useEffect } from 'react'
 import { RiAuctionFill } from 'react-icons/ri'
 import { Button } from '../shared/components/ui/button'
 import { IsAdmin } from '../shared/components/ui/is-admin'
+import { useWebSocket } from '../shared/hooks/use-web-socket'
 import { ApiErrorMessage } from './components/api-error-message'
 import { AuctionCard } from './components/auction-card'
 import { AuctionCardSkeleton } from './components/auction-card-skeleton'
@@ -12,6 +15,16 @@ import { useGetAuctionsQuery } from './react-query/queries/use-get-auctions-quer
 
 export default function AuctionsPage() {
   const { data: auctionData, isLoading, error } = useGetAuctionsQuery()
+  const { socket } = useWebSocket({ options: {} })
+  const queryClient = useQueryClient()
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('new-auction', async () => {
+        await queryClient.invalidateQueries({ queryKey: ['auctions'] })
+      })
+    }
+  }, [socket])
 
   return (
     <div className="flex h-full flex-col gap-4">

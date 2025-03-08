@@ -48,10 +48,22 @@ export async function middleware(req: NextRequest) {
       const currentTime = Math.floor(Date.now() / 1000)
 
       if (decoded.exp && decoded.exp < currentTime) {
-        return NextResponse.redirect(new URL('/login', req.url))
+        const response = NextResponse.redirect(new URL('/login', req.url))
+
+        // Deletar cookies de autenticação
+        response.cookies.set('next-auth.session-token', '', { maxAge: 0 })
+        response.cookies.set('next-auth.csrf-token', '', { maxAge: 0 })
+
+        return response
       }
     } catch (error) {
-      return NextResponse.redirect(new URL('/login', req.url))
+      const response = NextResponse.redirect(new URL('/login', req.url))
+
+      // Deletar cookies de autenticação em caso de erro
+      response.cookies.set('next-auth.session-token', '', { maxAge: 0 })
+      response.cookies.set('next-auth.csrf-token', '', { maxAge: 0 })
+
+      return response
     }
   }
 

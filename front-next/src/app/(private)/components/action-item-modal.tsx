@@ -1,5 +1,6 @@
 import { Button } from '@/app/shared/components/ui/button'
 import { Input } from '@/app/shared/components/ui/input'
+import { useWebSocket } from '@/app/shared/hooks/use-web-socket'
 import { useToast } from '@/app/shared/providers/toast-provider'
 import {
   INewAuctionZodSchema,
@@ -22,6 +23,8 @@ export const ActionItemModal = ({ open, onClose }: ActionItemModalProps) => {
     useCreateAuctionMutation()
   const { showToast } = useToast()
 
+  const { socket } = useWebSocket({ options: {} })
+
   const {
     register,
     formState: { errors },
@@ -41,6 +44,7 @@ export const ActionItemModal = ({ open, onClose }: ActionItemModalProps) => {
         startTime: data.startTime!,
         endTime: data.endTime!,
       })
+      socket?.emit('new-auction', data)
       showToast('Leilão cadastrado com sucesso', 'success')
     } catch (error) {
       showToast('Falha ao cadastrar leilão', 'error')

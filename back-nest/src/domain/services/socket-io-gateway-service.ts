@@ -66,27 +66,20 @@ export class SocketIoGatewayService
     })
   }
 
-  // Método para enviar mensagens broadcast
   sendMessageToAll(mensagem: string) {
     this.server.emit('broadcast', mensagem)
   }
 
   sendBidToAll(bid: MaxBidProps) {
-    // console.log(bid)
     this.server.emit('broadcast', bid)
-    // Reiniciar o timer global quando um lance é feito
     this.resetAuctionTimer(bid.auctionId)
   }
 
-  // Método para iniciar um timer para um leilão
   private startAuctionTimer(auctionId: string) {
-    // Definir tempo de expiração (2 minutos a partir de agora)
     const expiresAt = Date.now() + 2 * 60 * 1000
 
-    // Cancelar timer existente se houver
     this.clearAuctionTimer(auctionId)
 
-    // Criar novo timer
     const timer = setTimeout(
       () => {
         this.server.emit('auction-timer-expired', {
@@ -98,17 +91,14 @@ export class SocketIoGatewayService
       2 * 60 * 1000,
     )
 
-    // Armazenar timer e tempo de expiração
     this.auctionTimers.set(auctionId, { timer, expiresAt })
 
-    // Notificar todos os clientes
     this.server.emit('auction-timer-sync', {
       auctionId,
       expiresAt,
     })
   }
 
-  // Método para limpar um timer
   private clearAuctionTimer(auctionId: string) {
     const timerInfo = this.auctionTimers.get(auctionId)
     if (timerInfo) {
@@ -117,7 +107,6 @@ export class SocketIoGatewayService
     }
   }
 
-  // Método para resetar o timer de um leilão
   private resetAuctionTimer(auctionId: string) {
     this.startAuctionTimer(auctionId)
   }
@@ -127,13 +116,11 @@ export class SocketIoGatewayService
     const existingTimer = this.auctionTimers.get(payload.auctionId)
 
     if (existingTimer) {
-      // Se já existe, apenas notificar este cliente sobre o timer atual
       client.emit('auction-timer-sync', {
         auctionId: payload.auctionId,
         expiresAt: existingTimer.expiresAt,
       })
     } else {
-      // Se não existe, iniciar um novo timer
       this.startAuctionTimer(payload.auctionId)
     }
   }
@@ -153,5 +140,11 @@ export class SocketIoGatewayService
         expiresAt: null,
       })
     }
+  }
+
+  @SubscribeMessage('new-auction')
+  handleNewtAuction(client: Socket, payload: { auctionId: string }) {
+    console.log(payload)
+    this.server.emit('new-auction', payload)
   }
 }

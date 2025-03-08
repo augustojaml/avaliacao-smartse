@@ -49,11 +49,23 @@ export default function AuctionDetailPage() {
             {auctionDetail?.itemName}
           </h2>
           <p className="text-primary-light dark:text-primary-dark text-lg font-semibold">
-            Preço Atual: {formatCurrencyPtBRIntl(auctionDetail.initialPrice)}/
+            <span className="text-textPrimary-light dark:text-textPrimary-dark">
+              Preço Atual
+            </span>
+            : {formatCurrencyPtBRIntl(auctionDetail.initialPrice)}/
             <strong className="text-accentGreen text-xs">
               {formatCurrencyPtBRIntl(maxBid?.amount || 0)}
             </strong>
           </p>
+
+          {auctionDetail.status === 'closed' && (
+            <div className="text-primary-light dark:text-primary-dark text-lg font-semibold">
+              <span className="text-textPrimary-light dark:text-textPrimary-dark">
+                Vencedor
+              </span>
+              : {maxBid?.participant.fullName}
+            </div>
+          )}
         </div>
         <div className="flex flex-col items-start justify-center space-y-2">
           <StatusAuctionElapsed auction={auctionDetail!} />
