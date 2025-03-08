@@ -4,9 +4,11 @@ import { Button } from '@/app/shared/components/ui/button'
 import { formatCurrencyPtBRIntl } from '@/app/shared/helpers/format-currency-ptbr-intl'
 import { formatDatePtBRIntl } from '@/app/shared/helpers/format-date-ptbr-intl'
 import { useAuth } from '@/app/shared/hooks/use-auth'
-import { useCountdownTimer } from '@/app/shared/hooks/use-count-down-timer'
+import { useInactiveBidCountdown } from '@/app/shared/hooks/use-inactive-bid-count-down'
+import { useWebSocket } from '@/app/shared/hooks/use-web-socket'
+import { BidResponseSocket } from '@/app/shared/providers/ToastBidMessage'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RiAuctionFill } from 'react-icons/ri'
 import { AuctionProps } from '../dtos/auctions-dto'
 import { useGetMaxBidByAuctionIdQuery } from '../react-query/queries/use-get-max-bid-by-auction-id-query'
@@ -23,28 +25,18 @@ export const AuctionCard = ({ auctionData }: AuctionCardProps) => {
   const router = useRouter()
   const { data: maxBid } = useGetMaxBidByAuctionIdQuery(auctionData.id)
   const { user } = useAuth()
-
   const [openModalBid, setOpenModalBid] = useState(false)
-  const [countdown, setCountdown] = useState(0)
-  const { timeLeft, restartCountdown } = useCountdownTimer({
-    initialTime: 30,
-  })
+  const { countdown, startCountdown } = useInactiveBidCountdown()
 
-  const startCountdown = (duration = 5) => {
-    if (auctionData.status !== 'open') return
+  const { on, socket } = useWebSocket({ options: {} })
 
-    setCountdown(duration)
-
-    const interval = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval)
-          return 0
-        }
-        return prev - 1
+  useEffect(() => {
+    if (socket) {
+      on('broadcast', async (data: BidResponseSocket) => {
+        console.log(data)
       })
-    }, 1000)
-  }
+    }
+  }, [socket])
 
   return (
     <div className="bg-cardBackground-light dark:bg-cardBackground-dark flex w-full flex-col gap-3 rounded-lg p-4 shadow-lg">
@@ -112,17 +104,10 @@ export const AuctionCard = ({ auctionData }: AuctionCardProps) => {
           onEnableBid={() => {
             if (auctionData.status === 'open') {
               startCountdown()
-              restartCountdown()
             }
           }}
         />
       </div>
-
-      {auctionData.status === 'open' && (
-        <p className="text-primary-light dark:text-primary-dark">
-          Tempo restante: {timeLeft}
-        </p>
-      )}
     </div>
   )
 }
