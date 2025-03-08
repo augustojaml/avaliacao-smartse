@@ -22,6 +22,10 @@ Este projeto é um mini sistema de leilão online em tempo real, desenvolvido co
 
 ![Tela de Cadastro de Leilão](4-admin-add.png)
 
+### Video Demonstrativo
+
+[![Título do Vídeo](https://img.youtube.com/vi/kloEt-IPjL4/0.jpg)](https://www.youtube.com/watch?v=kloEt-IPjL4)
+
 ## Tecnologias Utilizadas
 
 ### Frontend:

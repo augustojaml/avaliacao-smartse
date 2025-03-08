@@ -6,7 +6,7 @@ import { formatDatePtBRIntl } from '@/app/shared/helpers/format-date-ptbr-intl'
 import { useAuth } from '@/app/shared/hooks/use-auth'
 import { useInactiveBidCountdown } from '@/app/shared/hooks/use-inactive-bid-count-down'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RiAuctionFill } from 'react-icons/ri'
 import { useCheckInactivityBid } from '../../shared/hooks/use-check-inactivity-bid'
 import { AuctionProps } from '../dtos/auctions-dto'
@@ -26,10 +26,26 @@ export const AuctionCard = ({ auctionData }: AuctionCardProps) => {
   const { user } = useAuth()
   const [openModalBid, setOpenModalBid] = useState(false)
   const { countdown, startCountdown } = useInactiveBidCountdown()
+  const [localCountdown, setLocalCountdown] = useState<number | null>(null)
+  const [isVisible, setIsVisible] = useState(true)
 
   const { globalCountdown } = useCheckInactivityBid({ auctionData })
 
-  // Criando um único intervalo para decrementar o contador
+  // Atualiza o contador local quando o contador global muda
+  useEffect(() => {
+    if (globalCountdown !== null && globalCountdown !== undefined) {
+      setLocalCountdown(globalCountdown)
+    }
+  }, [globalCountdown])
+
+  // Mantém o card visível mesmo quando o contador chega a zero
+  useEffect(() => {
+    if (localCountdown === 0) {
+      // Em vez de desaparecer, talvez mostre uma mensagem ou mude a aparência
+      // mas mantenha o card visível
+      setIsVisible(true) // Mantém sempre visível
+    }
+  }, [localCountdown])
 
   const statusBackground = {
     open: 'bg-accentGreen-light',
@@ -37,12 +53,29 @@ export const AuctionCard = ({ auctionData }: AuctionCardProps) => {
     waiting: 'bg-accentOrange-light',
   }
 
+  // Se não estiver visível, não renderiza nada
+  if (!isVisible) return null
+
+  // Função segura para obter o valor da contagem regressiva
+  const getCountdownValue = (): number => {
+    if (localCountdown !== null && localCountdown !== undefined) {
+      return localCountdown
+    }
+    if (globalCountdown !== null && globalCountdown !== undefined) {
+      return globalCountdown
+    }
+    return 0 // Valor padrão se ambos forem nulos
+  }
+
+  // Verifica se temos um valor válido para exibir
+  const hasValidCountdown = localCountdown !== null || globalCountdown !== null
+
   return (
     <div
       className={`${statusBackground[auctionData.status]} flex w-full flex-col gap-3 rounded-lg p-4 shadow-lg`}
     >
       <div className="flex items-center justify-between">
-        <h2 className="text-textPrimary-light dark:text-textPrimary-dark text-lg font-bold">
+        <h2 className="text-textPrimary-light text-lg font-bold">
           {auctionData.itemName}
         </h2>
         <RiAuctionFill className="text-primary-light dark:text-primary-dark text-xl" />
@@ -112,13 +145,19 @@ export const AuctionCard = ({ auctionData }: AuctionCardProps) => {
 
       {/* Contador global de 2 minutos */}
       <div className="h-4">
-        {auctionData.status === 'open' && globalCountdown !== null && (
+        {auctionData.status === 'open' && hasValidCountdown && (
           <div className="mt-2 flex items-center text-xs text-gray-600 dark:text-gray-400">
-            Tempo restante para próximo lance:{' '}
-            <strong className="text-primary-light dark:text-primary-dark">
-              {Math.floor(globalCountdown / 60)}:
-              {(globalCountdown % 60).toString().padStart(2, '0')}
-            </strong>
+            {getCountdownValue() === 0 ? (
+              <span className="text-accentRed-light">Tempo esgotado!</span>
+            ) : (
+              <>
+                Tempo restante para próximo lance:{' '}
+                <strong className="text-primary-light dark:text-primary-dark">
+                  {Math.floor(getCountdownValue() / 60)}:
+                  {(getCountdownValue() % 60).toString().padStart(2, '0')}
+                </strong>
+              </>
+            )}
           </div>
         )}
       </div>

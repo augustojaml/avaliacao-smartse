@@ -22,7 +22,7 @@ export const AuctionHeader = () => {
   return (
     <header className="bg-cardBackground-light dark:bg-cardBackground-dark fixed top-0 z-50 flex h-20 w-full items-center border-b border-gray-200 px-8 shadow-sm dark:border-gray-700">
       <div className="mx-auto flex h-16 w-full items-center justify-between px-4">
-        <Link href="/dashboard">
+        <Link href="/">
           <Button
             onClick={handleNavigateToHome}
             variant="ghost"
