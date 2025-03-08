@@ -9,7 +9,7 @@ import { SocketIoGatewayService } from './services/socket-io-gateway-service'
   imports: [
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'meu_segredo_super_secreto',
-      signOptions: { expiresIn: '1h' },
+      signOptions: { expiresIn: '1d' },
     }),
   ],
   providers: [
