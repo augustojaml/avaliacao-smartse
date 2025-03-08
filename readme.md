@@ -103,14 +103,16 @@ cd back-nest
 npm install
 
 # Copie o arquivo de variáveis de ambiente e ajuste os valores
-# Ajuste os valores de DB_USER, DB_PASS e DB_NAME conforme o docker-compose.yml
 cp .env.example .env
 
 # Rodar os containers Docker
 docker compose up -d
 
+# Gerar cliente Prisma
+npm run prisma generate
+
 # Rodar migrations do Prisma
-npx prisma migrate dev 
+npm run prisma migrate dev
 
 # Gerar usuários iniciais no banco de dados
 npm run prisma:seed
@@ -123,7 +125,7 @@ npm run start:dev
 
 ```bash
 # Voltar para a pasta raiz
-d cd ..
+cd ..
 
 # Acesse a pasta do frontend
 cd front-next
@@ -135,12 +137,22 @@ npm install
 cp .env.example .env.local
 
 # Defina a URL da API no .env.local
+# ⚠️ IMPORTANTE: Se quiser testar de outro computador na mesma rede,
+# defina um IP fixo para o backend ao invés de "localhost".
+# O IP pode ser obtido via `ipconfig` (Windows) ou `ifconfig` / `ip a` (Linux/Mac).
+# Caso use localhost, só poderá acessar o sistema na própria máquina.
 # Exemplo:
 # NEXT_PUBLIC_API_URL=http://192.168.1.14:3333
 # NEXTAUTH_SECRET=uma_chave_segura
 
 # Execute o projeto
 npm run dev
+
+# ✨ Quer expor para outros dispositivos na rede?
+# Rode com:
+npm run dev -H 0.0.0.0
+
+# Agora, abra o navegador e acesse a aplicação no seu IP!
 ```
 
 ---
@@ -154,3 +166,10 @@ npm test
 ```
 
 ---
+
+## 📩 Envio do Teste
+
+O projeto deve ser enviado até **09/03/2025, às 23h59**, para o e-mail:
+📧 `contratacaosmartse@gmail.com`
+
+Lembre-se de hospedar o repositório em um **GitHub público** antes do envio! 🚀
