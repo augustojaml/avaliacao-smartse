@@ -1,4 +1,4 @@
-import { Greetings } from './components/grettings'
+import { Greetings } from './components/greetings'
 
 export default function AuthLayout({
   children,

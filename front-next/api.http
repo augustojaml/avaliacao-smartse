@@ -16,7 +16,7 @@ POST {{baseUrl}}/sessions
 Content-Type: application/json
 
 {
-  "cpf": "07714836008",
+  "cpf": "96690169081",
   "password": "123456"
 }
 
@@ -68,12 +68,12 @@ Authorization: Bearer {{token}}
 }
 
 ### Get Bids
-GET {{baseUrl}}/bids?auction_id=c0527589-5cba-4509-943e-13753aed47da
+GET {{baseUrl}}/bids?auction_id=5e2d0d27-4f47-4d71-8089-2e8f810f80c5
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
 ### Get Max Bids
-GET {{baseUrl}}/bids/max?auction_id=02b422dc-261e-484c-b63e-a0d5c07494e5
+GET {{baseUrl}}/bids/max?auction_id=5e2d0d27-4f47-4d71-8089-2e8f810f80c5
 Content-Type: application/json
 Authorization: Bearer {{token}}

@@ -34,7 +34,6 @@ export class GetMaxBidByAuctionIdUserCase {
 
     return toResponseGetMaxBidByAuctionId({
       bid: findBids,
-      user: findUser,
       auction: findAuction,
     })
   }

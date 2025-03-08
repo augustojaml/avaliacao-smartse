@@ -32,25 +32,15 @@ export interface BidResponse {
   bid: BidProps
 }
 
-interface UserSocketProps {
-  id: string
-  fullName: string
-  cpf: string
-}
-
-export interface BidSocketResponseProps {
-  id: string
-  auctionId: string
-  participantId: string
-  amount: number
-  user: UserSocketProps
-}
-
 export interface MaxBidProps {
   id: string
   amount: number
   product: string
-  participant: string
+  participant: {
+    id: string
+    fullName: string
+    cpf: string
+  }
 }
 
 export interface MaxBidResponse {

@@ -46,6 +46,7 @@ describe('UpdateAuctionStatusUseCase Unit Tests', () => {
       id: auctionCreated.id,
       status: 'closed',
     })
+
     expect(updatedAction).toHaveProperty('auction')
     expect(updatedAction.auction.status).toEqual('closed')
   })

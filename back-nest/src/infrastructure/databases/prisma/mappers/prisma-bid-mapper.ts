@@ -1,4 +1,8 @@
 import { BidEntity } from '@/domain/entities/bid-entity'
+import { UserEntity } from '@/domain/entities/user-entity'
+import { Prisma } from '@prisma/client'
+
+type BidWithUser = Prisma.BidGetPayload<{ include: { participant: true } }>
 
 export const PrismaBidMapper = {
   toPrisma(bid: BidEntity) {
@@ -7,17 +11,16 @@ export const PrismaBidMapper = {
       auctionId: bid.props.auctionId,
       participantId: bid.props.participantId,
       amount: bid.props.amount,
-      participant: bid.props.participant,
     }
   },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  toDomain(bid: any) {
+  toDomain(bid: Omit<BidWithUser, 'participant'> | BidWithUser) {
     return BidEntity.create(
       {
         auctionId: bid.auctionId,
         participantId: bid.participantId,
         amount: bid.amount,
-        participant: bid.participant,
+        participant:
+          'participant' in bid ? UserEntity.create(bid.participant) : undefined,
       },
       bid.id,
     )

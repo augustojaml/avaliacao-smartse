@@ -1,6 +1,5 @@
 import { AuctionEntity } from '@/domain/entities/auctions-entity'
 import { BidEntity } from '@/domain/entities/bid-entity'
-import { UserEntity } from '@/domain/entities/user-entity'
 
 export interface IGetMaxBidByAuctionIdRequest {
   userId: string
@@ -9,11 +8,9 @@ export interface IGetMaxBidByAuctionIdRequest {
 
 export const toResponseGetMaxBidByAuctionId = ({
   bid,
-  user,
   auction,
 }: {
   bid: BidEntity | null
-  user: UserEntity | null
   auction: AuctionEntity | null
 }) => ({
   bid: bid
@@ -21,7 +18,13 @@ export const toResponseGetMaxBidByAuctionId = ({
         id: bid.id,
         amount: bid.props.amount,
         product: auction?.props.itemName ?? null,
-        participant: user?.props.fullName ?? null,
+        participant: bid.props.participant
+          ? {
+              id: bid.props.participant.id,
+              fullName: bid.props.participant.props.fullName,
+              cpf: bid.props.participant.props.cpf,
+            }
+          : null,
       }
     : null,
 })

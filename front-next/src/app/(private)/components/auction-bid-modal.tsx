@@ -64,7 +64,7 @@ export const ModalBid = ({
         amount: data.bidValue,
         auctionId,
       })
-      // showToast('Lance realizado com sucesso', 'success')
+
       reset()
       onEnableBid()
 
@@ -126,11 +126,15 @@ export const ModalBid = ({
 
           <div className="mt-6 flex justify-end gap-3">
             <Dialog.Close asChild>
-              <Button color="accentRed" variant="outlined">
+              <Button size="sm" color="accentRed" variant="outlined">
                 Cancelar
               </Button>
             </Dialog.Close>
-            <Button isLoading={isPending} onClick={handleSubmit(onSubmit)}>
+            <Button
+              size="sm"
+              isLoading={isPending}
+              onClick={handleSubmit(onSubmit)}
+            >
               Confirmar Lance
             </Button>
           </div>

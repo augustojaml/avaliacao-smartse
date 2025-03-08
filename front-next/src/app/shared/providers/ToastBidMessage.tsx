@@ -1,6 +1,5 @@
 'use client'
 
-import { BidSocketResponseProps } from '@/app/(private)/dtos/bid-dto'
 import * as Toast from '@radix-ui/react-toast'
 import { useQueryClient } from '@tanstack/react-query'
 import { clsx } from 'clsx'
@@ -20,6 +19,20 @@ import {
 } from 'react-icons/fi'
 import { formatCurrencyPtBRIntl } from '../helpers/format-currency-ptbr-intl'
 import { useWebSocket } from '../hooks/use-web-socket'
+
+export interface UserSocket {
+  id: string
+  fullName: string
+  cpf: string
+}
+
+export interface BidResponseSocket {
+  id: string
+  auctionId: string
+  participantId: string
+  amount: number
+  user: UserSocket
+}
 
 interface BidToastContextProps {
   showBidToast: (
@@ -98,25 +111,12 @@ export const BidToastProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (socket) {
-      on('broadcast', async (data: BidSocketResponseProps) => {
+      on('broadcast', async (data: BidResponseSocket) => {
         showBidToast(data.user.fullName, data.amount)
         await queryClient.invalidateQueries({ queryKey: ['auctions'] })
         await queryClient.invalidateQueries({ queryKey: ['bids-details'] })
         await queryClient.invalidateQueries({ queryKey: ['max-bid'] })
       })
-
-      // on(
-      //   'auction-winner',
-      //   (data: {
-      //     bid: { participant: string; amount: number; product: string }
-      //   }) => {
-      //     showWinnerToast(
-      //       data.bid.participant,
-      //       data.bid.product,
-      //       data.bid.amount,
-      //     )
-      //   },
-      // )
     }
   }, [socket])
 

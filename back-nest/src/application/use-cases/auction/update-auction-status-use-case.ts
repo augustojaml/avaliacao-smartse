@@ -36,9 +36,11 @@ export class UpdateAuctionStatusUseCase {
     }
 
     findAuction.props.status = auctionData.status
+    if (auctionData.status === 'closed') {
+      findAuction.props.endTime = new Date()
+    }
 
     const updateAction = await this.auctionsRepository.updateStatus(findAuction)
-
     if (!updateAction) {
       throw new ResourceNotFoundError()
     }

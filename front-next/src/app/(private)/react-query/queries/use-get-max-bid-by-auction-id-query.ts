@@ -11,8 +11,8 @@ export const useGetMaxBidByAuctionIdQuery = (auctionId?: string) => {
   return useQuery({
     queryKey: ['max-bid', auctionId],
     queryFn: async () => {
-      const bids = await bidService.getMaxByAuctionId(auctionId ?? '')
-      return bids
+      const bid = await bidService.getMaxByAuctionId(auctionId ?? '')
+      return bid
     },
     enabled: !!auctionId && !!accessToken,
     staleTime: 1000 * 60 * 5,

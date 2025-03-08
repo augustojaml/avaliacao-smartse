@@ -9,18 +9,20 @@ import {
 } from '@nestjs/websockets'
 import { Server, Socket } from 'socket.io'
 
-interface UserProps {
-  id: string
-  fullName: string
-  cpf: string
-}
-
-interface BidResponseProps {
+export interface MaxBidProps {
   id: string
   auctionId: string
   participantId: string
   amount: number
-  user: UserProps
+  user: {
+    id: string
+    fullName: string
+    cpf: string
+  }
+}
+
+export interface MaxBidResponse {
+  bid: MaxBidProps
 }
 
 @WebSocketGateway({
@@ -63,7 +65,7 @@ export class SocketIoGatewayService
     this.server.emit('broadcast', mensagem)
   }
 
-  sendBidToAll(bid: BidResponseProps) {
+  sendBidToAll(bid: MaxBidProps) {
     this.server.emit('broadcast', bid)
   }
 }

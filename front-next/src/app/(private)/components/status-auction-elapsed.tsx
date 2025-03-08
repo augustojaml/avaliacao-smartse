@@ -31,7 +31,7 @@ export const StatusAuctionElapsed = ({ auction }: StatusIndicatorProps) => {
     if (status === 'closed' && maxBid) {
       console.log(maxBid)
       showWinnerToast(
-        maxBid?.participant || '',
+        maxBid?.participant.fullName || '',
         maxBid?.product || '',
         maxBid?.amount || 0,
       )

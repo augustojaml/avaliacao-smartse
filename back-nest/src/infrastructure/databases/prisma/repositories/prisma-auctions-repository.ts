@@ -45,6 +45,7 @@ export class PrismaAuctionsRepository implements AuctionsRepository {
       },
       data: {
         status: auction.props.status,
+        endTime: auction.props.endTime,
       },
     })
 

@@ -10,16 +10,7 @@ export class PrismaBidsRepository implements BidsRepository {
 
   async create(bid: BidEntity): Promise<BidEntity> {
     const newBid = await this.prisma.bid.create({
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      data: PrismaBidMapper.toPrisma({
-        id: bid.id,
-        props: {
-          auctionId: bid.props.auctionId,
-          participantId: bid.props.participantId,
-          amount: bid.props.amount,
-        },
-      }),
+      data: PrismaBidMapper.toPrisma(bid),
     })
 
     return PrismaBidMapper.toDomain(newBid)
@@ -28,9 +19,9 @@ export class PrismaBidsRepository implements BidsRepository {
   async findMaxValued(auctionId: string): Promise<BidEntity | null> {
     const maxBid = await this.prisma.bid.findFirst({
       where: { auctionId },
-      orderBy: { amount: 'desc' }, // Ordena do maior para o menor
+      orderBy: { amount: 'desc' },
       include: {
-        participant: true, // Mantém a relação com o participante
+        participant: true,
       },
     })
 

@@ -1,4 +1,4 @@
-@baseUrl = http://192.168.1.14:3333
+@baseUrl = http://192.168.1.11:3333
 
 ### Create User
 POST {{baseUrl}}/users
@@ -32,8 +32,8 @@ Authorization: Bearer {{token}}
   "itemName": "Blusa",
   "quantity": 5,
   "initialPrice": 20.55,
-  "startTime": "2025-03-06T15:40:00.000Z",
-  "endTime": "2025-03-06T16:00:00.000Z" 
+  "startTime": "2025-03-07T15:40:00.000Z",
+  "endTime": "2025-03-07T16:00:00.000Z" 
 }
 
 ### Find All Actions
@@ -48,7 +48,7 @@ Authorization: Bearer {{token}}
 
 
 ### Update Status Action
-PUT {{baseUrl}}/auctions/6c432689-11ae-4b28-b00c-807ce8b7305b
+PUT {{baseUrl}}/auctions/6a424b6d-c92e-4bc9-a889-bad2e6ad4070
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -73,6 +73,6 @@ Authorization: Bearer {{token}}
 
 
 ### Find Mx Binds
-GET {{baseUrl}}/bids/max?auction_id=c0527589-5cba-4509-943e-13753aed47da
+GET {{baseUrl}}/bids/max?auction_id=5e2d0d27-4f47-4d71-8089-2e8f810f80c5
 Content-Type: application/json
 Authorization: Bearer {{token}}
