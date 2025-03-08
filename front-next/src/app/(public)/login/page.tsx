@@ -13,7 +13,7 @@ export default function Login() {
         </h2>
       </div>
       <p className="text-textPrimary-light dark:text-textPrimary-dark mb-4 text-center text-sm">
-        Faça login para acompanhar licitações em tempo real e enviar lances
+        Faça login para acompanhar ou dar lances em tempo real e enviar lances
       </p>
       <LoginForm />
       <div className="flex w-full items-center justify-center">

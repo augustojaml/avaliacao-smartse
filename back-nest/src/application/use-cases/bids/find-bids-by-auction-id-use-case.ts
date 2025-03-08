@@ -24,6 +24,7 @@ export class FindBidsByAuctionIdUserCase {
     const findBids = await this.bidsRepository.findBidsByAuctionId(
       bidData.auctionId,
     )
+    console.log(JSON.stringify(toFindBidByActionIdResponse(findBids), null, 2))
 
     return toFindBidByActionIdResponse(findBids)
   }

@@ -25,18 +25,21 @@ export const StatusAuctionElapsed = ({ auction }: StatusIndicatorProps) => {
   const { showWinnerToast } = useToastBidMessage()
 
   useEffect(() => {
-    if (status === currentStatus) return
+    if (status === currentStatus && status !== 'closed') return
     setCurrentStatus(status)
+    console.log('currentStatus', currentStatus)
 
-    if (status === 'closed' && maxBid) {
-      console.log(maxBid)
+    if (status === 'closed' && maxBid && currentStatus !== 'closed') {
+      console.log(
+        'status-auction-elapsed',
+        JSON.stringify({ maxBid, currentStatus }, null, 2),
+      )
       showWinnerToast(
         maxBid?.participant.fullName || '',
         maxBid?.product || '',
         maxBid?.amount || 0,
       )
     }
-
     updateAuction({
       data: {
         status,

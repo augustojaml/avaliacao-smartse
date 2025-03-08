@@ -1,4 +1,5 @@
 import { BidEntity } from '@/domain/entities/bid-entity'
+import { UserEntity } from '@/domain/entities/user-entity'
 
 export interface IFindBidsByAuctionIdRequest {
   userId: string
@@ -6,11 +7,15 @@ export interface IFindBidsByAuctionIdRequest {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const toUser = (user: any) => {
+const toUser = (user?: UserEntity | null) => {
+  if (!user) {
+    return null
+  }
+
   return {
     id: user.id,
-    fullName: user.fullName,
-    cpf: user.cpf,
+    fullName: user.props.fullName,
+    cpf: user.props.cpf,
   }
 }
 

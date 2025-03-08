@@ -18,7 +18,6 @@ import { RiLockPasswordLine } from 'react-icons/ri'
 export const LoginForm = () => {
   const { signInZodSchema } = useSignInZodSchema()
   const [signInLoading, setSignInLoading] = useState(false)
-  const { accessToken } = useAuth()
 
   const { showToast } = useToast()
   const { signIn } = useAuth()
@@ -53,8 +52,6 @@ export const LoginForm = () => {
     }
     setSignInLoading(false)
   }, [])
-
-  if (accessToken) redirect('/')
 
   return (
     <form

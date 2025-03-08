@@ -36,30 +36,39 @@ export const AuctionItemsTable = () => {
               </tr>
             </thead>
             <tbody>
-              {auctionData?.map((item, index) => (
-                <tr
-                  key={item.id}
-                  className={`dark:border-primary-light/30 border-primary-light/30 border-b ${
-                    index % 2 === 0 ? 'dark:bg-secondary-dark bg-gray-50' : ''
-                  }`}
-                >
-                  <td className="text-textPrimary-light dark:text-textPrimary-dark px-4 py-3 text-start font-medium">
-                    {item.itemName}
-                  </td>
-                  <td className="text-textPrimary-light dark:text-textPrimary-dark px-4 py-3 text-center font-semibold">
-                    {item.quantity}
-                  </td>
-                  <td className="text-textSecondary-light dark:text-textSecondary-dark px-4 py-3 text-end font-semibold">
-                    {formatCurrencyPtBRIntl(item.initialPrice)}
-                  </td>
-                  <td className="text-textSecondary-light dark:text-textSecondary-dark px-4 py-3 text-end">
-                    {formatDatePtBRIntl(item.startTime)}
-                  </td>
-                  <td className="text-textSecondary-light dark:text-textSecondary-dark px-4 py-3 text-end">
-                    {formatDatePtBRIntl(item.endTime)}
+              {auctionData?.length === 0 && (
+                <tr className="text-primary-light dark:text-primary-dark text-center font-semibold">
+                  <td className="p-4" colSpan={5}>
+                    Nenhum item encontrado para o leilão. 🧾
                   </td>
                 </tr>
-              ))}
+              )}
+              {auctionData &&
+                auctionData?.length > 0 &&
+                auctionData?.map((item, index) => (
+                  <tr
+                    key={item.id}
+                    className={`dark:border-primary-light/30 border-primary-light/30 border-b ${
+                      index % 2 === 0 ? 'dark:bg-secondary-dark bg-gray-50' : ''
+                    }`}
+                  >
+                    <td className="text-textPrimary-light dark:text-textPrimary-dark px-4 py-3 text-start font-medium">
+                      {item.itemName}
+                    </td>
+                    <td className="text-textPrimary-light dark:text-textPrimary-dark px-4 py-3 text-center font-semibold">
+                      {item.quantity}
+                    </td>
+                    <td className="text-textSecondary-light dark:text-textSecondary-dark px-4 py-3 text-end font-semibold">
+                      {formatCurrencyPtBRIntl(item.initialPrice)}
+                    </td>
+                    <td className="text-textSecondary-light dark:text-textSecondary-dark px-4 py-3 text-end">
+                      {formatDatePtBRIntl(item.startTime)}
+                    </td>
+                    <td className="text-textSecondary-light dark:text-textSecondary-dark px-4 py-3 text-end">
+                      {formatDatePtBRIntl(item.endTime)}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         )}

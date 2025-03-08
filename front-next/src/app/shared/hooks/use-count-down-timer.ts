@@ -19,7 +19,6 @@ export const useCountdownTimer = ({
   useEffect(() => {
     if (timeLeft <= 0) {
       setFinished(true)
-      console.log('Tempo acabou!')
       return
     }
 
@@ -28,7 +27,6 @@ export const useCountdownTimer = ({
         if (prev === 1) {
           clearInterval(timer)
           setFinished(true)
-          console.log('Tempo acabou!')
           return 0
         }
         return prev - 1

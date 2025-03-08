@@ -5,11 +5,10 @@ import { formatCurrencyPtBRIntl } from '@/app/shared/helpers/format-currency-ptb
 import { formatDatePtBRIntl } from '@/app/shared/helpers/format-date-ptbr-intl'
 import { useAuth } from '@/app/shared/hooks/use-auth'
 import { useInactiveBidCountdown } from '@/app/shared/hooks/use-inactive-bid-count-down'
-import { useWebSocket } from '@/app/shared/hooks/use-web-socket'
-import { BidResponseSocket } from '@/app/shared/providers/ToastBidMessage'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { RiAuctionFill } from 'react-icons/ri'
+import { useCheckInactivityBid } from '../../shared/hooks/use-check-inactivity-bid'
 import { AuctionProps } from '../dtos/auctions-dto'
 import { useGetMaxBidByAuctionIdQuery } from '../react-query/queries/use-get-max-bid-by-auction-id-query'
 import { ModalBid } from './auction-bid-modal'
@@ -28,18 +27,20 @@ export const AuctionCard = ({ auctionData }: AuctionCardProps) => {
   const [openModalBid, setOpenModalBid] = useState(false)
   const { countdown, startCountdown } = useInactiveBidCountdown()
 
-  const { on, socket } = useWebSocket({ options: {} })
+  const { globalCountdown } = useCheckInactivityBid({ auctionData })
 
-  useEffect(() => {
-    if (socket) {
-      on('broadcast', async (data: BidResponseSocket) => {
-        console.log(data)
-      })
-    }
-  }, [socket])
+  // Criando um único intervalo para decrementar o contador
+
+  const statusBackground = {
+    open: 'bg-accentGreen/5',
+    closed: 'bg-accentRed/5',
+    waiting: 'bg-accentOrange/5',
+  }
 
   return (
-    <div className="bg-cardBackground-light dark:bg-cardBackground-dark flex w-full flex-col gap-3 rounded-lg p-4 shadow-lg">
+    <div
+      className={`${statusBackground[auctionData.status]} flex w-full flex-col gap-3 rounded-lg p-4 shadow-lg`}
+    >
       <div className="flex items-center justify-between">
         <h2 className="text-textPrimary-light dark:text-textPrimary-dark text-lg font-bold">
           {auctionData.itemName}
@@ -107,6 +108,19 @@ export const AuctionCard = ({ auctionData }: AuctionCardProps) => {
             }
           }}
         />
+      </div>
+
+      {/* Contador global de 2 minutos */}
+      <div className="h-4">
+        {auctionData.status === 'open' && globalCountdown !== null && (
+          <div className="mt-2 flex items-center text-xs text-gray-600 dark:text-gray-400">
+            Tempo restante para próximo lance:{' '}
+            <strong className="text-primary-light dark:text-primary-dark">
+              {Math.floor(globalCountdown / 60)}:
+              {(globalCountdown % 60).toString().padStart(2, '0')}
+            </strong>
+          </div>
+        )}
       </div>
     </div>
   )

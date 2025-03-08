@@ -42,7 +42,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 ### Get Auction
-GET {{baseUrl}}/auctions/8e9fd83e-660d-43a8-ab0e-c45e80656d73
+GET {{baseUrl}}/auctions/d41271c9-1845-4be3-b5fc-2a185d5f66d4
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -67,7 +67,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Find Binds
-GET {{baseUrl}}/bids?auction_id=c0527589-5cba-4509-943e-13753aed47da
+GET {{baseUrl}}/bids?auction_id=8ac7a168-9b9c-4fba-bf38-ccbc989ff2d9
 Content-Type: application/json
 Authorization: Bearer {{token}}
 

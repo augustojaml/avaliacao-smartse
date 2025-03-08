@@ -30,6 +30,7 @@ export interface BidResponseSocket {
   id: string
   auctionId: string
   participantId: string
+  product: string
   amount: number
   user: UserSocket
 }
@@ -37,6 +38,7 @@ export interface BidResponseSocket {
 interface BidToastContextProps {
   showBidToast: (
     participantName: string,
+    product: string,
     amount: number,
     type?: 'success' | 'error' | 'info' | 'warning',
   ) => void
@@ -71,11 +73,13 @@ export const BidToastProvider = ({ children }: { children: ReactNode }) => {
 
   const showBidToast = (
     participantName: string,
+    product: string,
     amount: number,
     type: 'success' | 'error' | 'info' | 'warning' = 'success',
   ) => {
     setParticipantName(participantName)
     setAmount(amount)
+    setProduct(product)
     setType(type)
     setOpen(false)
     setTimeout(() => setOpen(true), 10)
@@ -112,7 +116,8 @@ export const BidToastProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (socket) {
       on('broadcast', async (data: BidResponseSocket) => {
-        showBidToast(data.user.fullName, data.amount)
+        showBidToast(data.user.fullName, data.product, data.amount)
+        // console.log('broadcast', data)
         await queryClient.invalidateQueries({ queryKey: ['auctions'] })
         await queryClient.invalidateQueries({ queryKey: ['bids-details'] })
         await queryClient.invalidateQueries({ queryKey: ['max-bid'] })
@@ -168,9 +173,9 @@ export const BidToastProvider = ({ children }: { children: ReactNode }) => {
                 <Toast.Description className="text-sm font-semibold">
                   {participantName} deu um lance de{' '}
                   <span className="font-bold">
-                    {formatCurrencyPtBRIntl(amount)}
+                    {`${formatCurrencyPtBRIntl(amount)} no produto `}
                   </span>
-                  ! 💰
+                  <strong>{product}</strong>💰
                 </Toast.Description>
               </div>
               <Toast.Action asChild altText="Fechar">

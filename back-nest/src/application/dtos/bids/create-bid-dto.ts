@@ -1,3 +1,4 @@
+import { AuctionEntity } from '@/domain/entities/auctions-entity'
 import { BidEntity } from '@/domain/entities/bid-entity'
 import { UserEntity } from '@/domain/entities/user-entity'
 
@@ -15,12 +16,17 @@ const toBidUserResponse = (user: UserEntity) => {
   }
 }
 
-export const toCreateBidResponse = (bid: BidEntity, user: UserEntity) => {
+export const toCreateBidResponse = (
+  bid: BidEntity,
+  user: UserEntity,
+  auction: AuctionEntity,
+) => {
   return {
     bid: {
       id: bid.id,
       auctionId: bid.props.auctionId,
       participantId: bid.props.participantId,
+      product: auction.props.itemName,
       amount: bid.props.amount,
       user: toBidUserResponse(user),
     },

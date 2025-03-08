@@ -53,6 +53,6 @@ export class CreateBidUserCase {
 
     const bid = await this.bidsRepository.create(bindEntity)
 
-    return toCreateBidResponse(bid, findUser)
+    return toCreateBidResponse(bid, findUser, findAuction)
   }
 }

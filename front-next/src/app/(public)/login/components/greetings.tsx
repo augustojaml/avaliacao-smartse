@@ -10,9 +10,8 @@ export const Greetings = () => {
         </h2>
       </div>
       <p className="text-textPrimary-dark mb-8 max-w-md leading-relaxed">
-        Conquiste contratos públicos e oportunidades exclusivas! Participe de
-        leilões e licitações, faça seus lances e garanta o melhor preço para
-        seus serviços e produtos.
+        Dê o lance certo e arremate grandes oportunidades! Participe de leilões,
+        dispute os melhores lotes e conquiste pelo melhor preço.
       </p>
     </div>
   )
