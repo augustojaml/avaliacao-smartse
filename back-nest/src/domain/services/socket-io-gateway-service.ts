@@ -144,7 +144,7 @@ export class SocketIoGatewayService
 
   @SubscribeMessage('new-auction')
   handleNewtAuction(client: Socket, payload: { auctionId: string }) {
-    console.log(payload)
+    // console.log(payload)
     this.server.emit('new-auction', payload)
   }
 }
